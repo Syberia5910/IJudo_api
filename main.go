@@ -1,12 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"judoApi/config"
 	"log"
-	"fmt"
-  )
-  
-  func main() {
+)
+
+func main() {
 	fmt.Println("Démarrage de l'api")
 	// Create logging File
 	GetLogger()
@@ -20,4 +20,4 @@ import (
 	// Start http server
 	fmt.Println("Serveur en écoute sur localhost:8080")
 	log.Fatal(router.Run("localhost:8080"))
-  }
+}

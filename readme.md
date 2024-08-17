@@ -36,3 +36,10 @@ Lancement du dev ()
     go run . 
 ou
     find -name '*.go' | entr -rd go run .  # Permet de relancer en cas de modif
+
+
+==========================-
+Lancement du build docker 
+
+
+docker build -t ijudo_api:0.1 . --network=host
