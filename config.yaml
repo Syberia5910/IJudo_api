@@ -1,0 +1,49 @@
+base_category:
+  - name: Mini-poussin
+    genre: M
+    variance: 6
+    gap: 2
+  - name: Mini-poussinne
+    genre: M
+    variance: 6
+    gap: 2
+  - name: Poussin
+    genre: M
+    variance: 8
+    gap: 2
+  - name: Poussinne
+    genre: F
+    variance: 8
+    gap: 2
+  - name: Benjamin
+    genre: M
+    variance: 10
+    gap: 2
+  - name: Benjamine
+    genre: F
+    variance: 10 
+    gap: 2
+  - name: Minime G
+    genre: M
+    variance: 12
+    gap: 2
+  - name: Minime F
+    genre: F
+    variance: 12
+    gap: 2
+  - name: Cadet
+    genre: M
+    variance: 14
+    gap: 3
+  - name: Cadette
+    genre: F
+    variance: 14
+    gap: 3
+  - name: Junior G
+    genre: M
+    variance: 17
+    gap: 3
+  - name: Junior F
+    genre: F
+    variance: 17
+    gap: 3

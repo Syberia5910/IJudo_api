@@ -11,11 +11,18 @@ func main() {
 	// Create logging File
 	GetLogger()
 
+	// Load the configuration file
+	cfg := config.Cfg{}
+	err := config.LoadConfig("config.yaml", &cfg)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+
 	// Connect to Database
 	config.ConnectDatabase()
 
 	// Initialize router api
-	router := InitializeRouter()
+	router := InitializeRouter(&cfg)
 
 	// Start http server
 	fmt.Println("Serveur en écoute sur localhost:8080")

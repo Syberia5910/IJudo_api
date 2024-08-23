@@ -5,7 +5,10 @@ import (
 	"net/http"
 	"judoApi/models"
 	"judoApi/config"
+  	"gorm.io/datatypes"
 	"github.com/gin-gonic/gin"
+    "time"
+	"fmt"
 )
 
 // GET /tournaments
@@ -31,7 +34,7 @@ func GetTournament(c *gin.Context) {
 
 // POST /tournament
 // Create new tournament
-func CreateTournament(c *gin.Context) {
+func CreateTournament(c *gin.Context, cfg *config.Cfg) {
   log.Println("Début création tournoi --")
   // Validate input
   var input models.Tournament
@@ -43,6 +46,23 @@ func CreateTournament(c *gin.Context) {
 	// Create Tournament
 	tournament := models.Tournament{Nom: input.Nom, Date_Debut: input.Date_Debut, Date_Fin: input.Date_Fin}
 	config.DB.Create(&tournament)
+	// Create categories
+	for _, cat := range cfg.BaseCategory {
+		// Convert Date_Debut to time.Time
+		dateDebut := time.Time(tournament.Date_Debut)
+		dateMin := time.Date(dateDebut.AddDate(- cat.Variance,0,0).Year(), time.January, 1, 0, 0, 0, 0, time.UTC)
+		dateMax := time.Date(dateDebut.AddDate(- cat.Variance,0,0).AddDate(- cat.Gap,0,0).AddDate(1,0,0).Year(), time.December, 31, 23, 59, 59, 0, time.UTC)
+		fmt.Println(dateMin, dateMax)
+		category := models.Category{
+		 	Nom: cat.Name,
+			Date_Naissance_max: datatypes.Date(dateMin),
+			Date_Naissance_min: datatypes.Date(dateMax),
+			TournamentID: tournament.ID,
+			Sexe: cat.Genre,
+		}
+		config.DB.Preload("Tournament").Create(&category)
+	}
+
 	c.JSON(http.StatusOK, tournament)
 	log.Println("Fin création tournoi -- OK", http.StatusOK)
 }
